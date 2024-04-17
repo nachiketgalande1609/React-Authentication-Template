@@ -5,10 +5,11 @@ import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../context/userContext';
 
 export default function Navbar() {
-    const { user } = useContext(UserContext);
-    const { setUser } = useContext(UserContext);
+    // Accessing user context and navigate hook
+    const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate()
 
+    // Function to handle user logout
     const handleLogout = async () => {
         try {
             const response = await axios.get(`/logout?timestamp=${Date.now()}`, {
@@ -17,8 +18,8 @@ export default function Navbar() {
 
             if (response.status === 200) {
                 console.log('Logged out successfully');
-                setUser(null);
-                navigate('/login')
+                setUser(null);          // Clear user context
+                navigate('/login')      // Redirect to login page
             } else {
                 console.error('Failed to logout:', response.statusText);
             }
@@ -30,7 +31,7 @@ export default function Navbar() {
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <div className="container-fluid">
+                <div className="container">
                     <a className="navbar-brand" href="#">Navbar</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>

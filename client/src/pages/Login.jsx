@@ -12,18 +12,21 @@ export default function Login() {
         password: ''
     })
 
+    // Function to handle user login
     const loginUser = async (e) => {
         e.preventDefault();
         const { email, password } = data;
         try {
             const { data: responseData } = await axios.post('/login', { email, password });
             if (responseData.error) {
+                // Display error message if login fails
                 toast.error(responseData.error);
             } else {
+                // Display success message and update user context if login succeeds
                 toast.success('Logged in successfully!')
-                setUser(responseData); // Update user state with user data
-                setData({ email: '', password: '' }); // Clear form data
-                navigate('/dashboard');
+                setUser(responseData);                          // Update user state with user data
+                setData({ email: '', password: '' });           // Clear form data
+                navigate('/dashboard');                         // Redirect to dashboard page
             }
         } catch (error) {
             console.error('Login failed:', error);

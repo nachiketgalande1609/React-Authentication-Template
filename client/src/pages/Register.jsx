@@ -13,6 +13,7 @@ export default function register() {
     password: ''
   })
 
+  // Function to handle user registration
   const registerUser = async (e) => {
     e.preventDefault();
     const { name, email, password } = data;
@@ -21,9 +22,11 @@ export default function register() {
         name, email, password
       })
       if (data.error) {
+        // Display error message if registration fails
         toast.error(data.error)
       }
       else {
+        // Clear form data and navigate to login page if registration succeeds
         setData({})
         navigate('/login')
       }
